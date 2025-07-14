@@ -19,7 +19,7 @@ def getName(img_id,headers):
         artist_text=text_data.find("meta", property="og:title")
         if artist_text is None:
             raise ValueError('未取得标签')
-        obj2=re.compile(r'<meta content=".*?- (?P<artist>.*?)的插画',re.S)
+        obj2=re.compile(r'<meta property="og:title" content=".*?- (?P<artist>.*?)的插画',re.S)
         artist_names=obj2.findall(str(artist_text))
              
         if artist_names is None:
@@ -41,7 +41,7 @@ def getName(img_id,headers):
 
 def Down_by_Artwork_id(img_id,headers,session):
     try:
-        second=random.randrange(1,4)
+        second=random.randint(1,4)
         url=f'https://www.pixiv.net/ajax/illust/{img_id}/pages?lang=zh'
         trps=session.get(url,headers=headers)
         trps.raise_for_status()
@@ -59,9 +59,9 @@ def Down_by_Artwork_id(img_id,headers,session):
             with open(save_path,mode='wb') as f:
                     f.write(img.content)
             f.close()
-            print(f"{img_id}over!")
-            trps.close()
+            print(f"{img_id} 下载完毕!")
             time.sleep(second)
+            trps.close()
 
     except json.decoder.JSONDecodeError:
         print("Cookie 过期")
@@ -104,12 +104,12 @@ def down_all_artist_from_artsist(id,headers,session):
 def switch(a):
     match a:
         case '1':
-               id_num=input("请输入作品id")
+               id_num=input("请输入作品id: ")
                id=int(id_num)
                Down_by_Artwork_id(id,headers,session)
                a=input("请输入数字: ")
         case '2':
-                id_num=input("请输入作者id")
+                id_num=input("请输入作者id: ")
                 id=int(id_num)
                 down_all_artist_from_artsist(id,headers,session)
                 a=input("请输入数字: ")
@@ -124,7 +124,7 @@ if __name__ == "__main__":
         headers={
             'referer':'https://www.pixiv.net/',
             'User-Agent':"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
-            "cookie":"#"
+            "cookie":"PHPSESSID=52160949_PXZW6ijelhCg8DaddN0oFwSaTGA1lGno;"
         }
         print("-----------\n","1.以作品id下载\n","2.以作者id下载全部\n","3.退出","-----------\n")
         while True:
