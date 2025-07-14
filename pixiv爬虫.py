@@ -19,7 +19,7 @@ def getName(img_id,headers):
         artist_text=text_data.find("meta", property="og:title")
         if artist_text is None:
             raise ValueError('未取得标签')
-        obj2=re.compile(r'<meta property="og:title" content=".*?- (?P<artist>.*?)的插画',re.S)
+        obj2=re.compile(r'<meta content=".*?- (?P<artist>.*?)的插画',re.S)
         artist_names=obj2.findall(str(artist_text))
              
         if artist_names is None:
@@ -132,12 +132,12 @@ if __name__ == "__main__":
             if n is None:
                 raise ValueError("请输入数字!")
             if n=="1":
-                id_num=input("请输入作品id")
+                id_num=input("请输入作品id: ")
                 id=int(id_num)
                 Down_by_Artwork_id(id,headers,session)
                 continue
             if n=="2":
-                id_num=input("请输入作者id")
+                id_num=input("请输入作者id: ")
                 id=int(id_num)
                 down_all_artist_from_artsist(id,headers,session)
                 continue
