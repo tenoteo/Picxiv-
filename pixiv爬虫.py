@@ -124,7 +124,7 @@ if __name__ == "__main__":
         headers={
             'referer':'https://www.pixiv.net/',
             'User-Agent':"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
-            "cookie":"PHPSESSID=52160949_PXZW6ijelhCg8DaddN0oFwSaTGA1lGno;"
+            "cookie":"#"
         }
         print("-----------\n","1.以作品id下载\n","2.以作者id下载全部\n","3.退出","-----------\n")
         while True:
